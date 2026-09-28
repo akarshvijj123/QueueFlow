@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Analytics | QueueFlow</title>
+  <meta name="description" content="Operational metrics, peak hour analysis, and throughput reports for organizations using QueueFlow.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-analytics dashboard-body">
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">Q</div>
+      <span>QueueFlow</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        Dashboard
+      </a>
+      <a href="admin.html#queue-management" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Queue Management
+      </a>
+      <a href="customer.html" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        Customer App
+      </a>
+      <a href="analytics.html" class="sidebar-link active">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+        Analytics
+      </a>
+      <a href="index.html" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        Landing Page
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div>CityCare Hospital</div>
+      <div style="color: #475569; font-size: 0.75rem;">Analytics Module</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="dashboard-main">
+
+    <!-- Topbar -->
+    <header class="dashboard-topbar">
+      <div class="topbar-org">
+        <h1 class="topbar-org-title">SERVICE ANALYTICS & THROUGHPUT REPORT</h1>
+      </div>
+
+      <div class="topbar-right">
+        <select id="analytics-time-filter" class="form-select" style="padding: 0.375rem 0.75rem; font-size: 0.875rem;">
+          <option value="today">Today's Data</option>
+          <option value="week">Past 7 Days</option>
+          <option value="month">This Month</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="dashboard-content">
+
+      <!-- Statistics Overview Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">Average Waiting Time</div>
+          <div class="stat-card-val" id="analytics-avg-wait">17 min</div>
+          <div class="stat-card-sub" style="color: var(--status-green-text); font-weight: 600;">
+            &darr; 2.5 min vs yesterday
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Customers Served</div>
+          <div class="stat-card-val" id="analytics-total-customers">86</div>
+          <div class="stat-card-sub" style="color: var(--status-green-text); font-weight: 600;">
+            &uarr; 14% peak performance
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Peak Hour Window</div>
+          <div class="stat-card-val" style="font-size: 1.5rem; line-height: 1.2;">10:00 AM &ndash; 12:00 PM</div>
+          <div class="stat-card-sub">Avg 35 customers / hr</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Queue Completion Rate</div>
+          <div class="stat-card-val" style="color: var(--accent-teal);">91%</div>
+          <div class="stat-card-sub">9% dropout / left queue</div>
+        </div>
+      </div>
+
+      <!-- Charts Section (Pure HTML & CSS Visualizations) -->
+      <div class="charts-grid">
+
+        <!-- Chart 1: Queue Volume by Hour (CSS Column Bar Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div class="chart-card-title">Queue Volume by Hour (Today)</div>
+            <span class="badge badge-green">Peak: 11:00 AM</span>
+          </div>
+
+          <div class="bar-chart-container">
+            <div class="bar-col">
+              <div class="bar-tooltip">12 customers</div>
+              <div class="bar-fill" style="height: 35%;"></div>
+              <div class="bar-label">8 AM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">22 customers</div>
+              <div class="bar-fill" style="height: 60%;"></div>
+              <div class="bar-label">9 AM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">34 customers</div>
+              <div class="bar-fill peak" style="height: 90%;"></div>
+              <div class="bar-label">10 AM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">38 customers</div>
+              <div class="bar-fill peak" style="height: 100%;"></div>
+              <div class="bar-label">11 AM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">28 customers</div>
+              <div class="bar-fill" style="height: 75%;"></div>
+              <div class="bar-label">12 PM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">18 customers</div>
+              <div class="bar-fill" style="height: 50%;"></div>
+              <div class="bar-label">1 PM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">24 customers</div>
+              <div class="bar-fill" style="height: 65%;"></div>
+              <div class="bar-label">2 PM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">20 customers</div>
+              <div class="bar-fill" style="height: 55%;"></div>
+              <div class="bar-label">3 PM</div>
+            </div>
+
+            <div class="bar-col">
+              <div class="bar-tooltip">14 customers</div>
+              <div class="bar-fill" style="height: 40%;"></div>
+              <div class="bar-label">4 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 2: Average Wait Time by Department (Horizontal CSS Bar Chart) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div class="chart-card-title">Avg Wait by Service</div>
+          </div>
+
+          <div class="horiz-bar-list">
+            <div class="horiz-bar-item">
+              <div class="horiz-bar-meta">
+                <span>General Consultation</span>
+                <span>18 min</span>
+              </div>
+              <div class="horiz-bar-track">
+                <div class="horiz-bar-fill" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <div class="horiz-bar-item">
+              <div class="horiz-bar-meta">
+                <span>Pharmacy</span>
+                <span>10 min</span>
+              </div>
+              <div class="horiz-bar-track">
+                <div class="horiz-bar-fill" style="width: 48%; background-color: #0f766e;"></div>
+              </div>
+            </div>
+
+            <div class="horiz-bar-item">
+              <div class="horiz-bar-meta">
+                <span>Laboratory</span>
+                <span>15 min</span>
+              </div>
+              <div class="horiz-bar-track">
+                <div class="horiz-bar-fill" style="width: 70%;"></div>
+              </div>
+            </div>
+
+            <div class="horiz-bar-item">
+              <div class="horiz-bar-meta">
+                <span>Billing & Desk</span>
+                <span>5 min</span>
+              </div>
+              <div class="horiz-bar-track">
+                <div class="horiz-bar-fill" style="width: 25%; background-color: #0f766e;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 3: Queue Completion Breakdown -->
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <div class="chart-card-title">Queue Status Breakdown</div>
+          <span style="font-size: 0.8125rem; color: var(--text-muted);">Total Tokens Processed Today: 95</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; height: 16px; border-radius: var(--radius-full); overflow: hidden;">
+            <div style="width: 91%; background-color: var(--accent-teal);" title="Completed: 91%"></div>
+            <div style="width: 6%; background-color: #f59e0b;" title="Cancelled: 6%"></div>
+            <div style="width: 3%; background-color: #ef4444;" title="No Show: 3%"></div>
+          </div>
+
+          <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1rem; font-size: 0.875rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="width: 12px; height: 12px; background-color: var(--accent-teal); border-radius: 3px;"></span>
+              <strong>Completed:</strong> 86 (91%)
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="width: 12px; height: 12px; background-color: #f59e0b; border-radius: 3px;"></span>
+              <strong>Left Queue:</strong> 6 (6%)
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="width: 12px; height: 12px; background-color: #ef4444; border-radius: 3px;"></span>
+              <strong>No-Show / Cancelled:</strong> 3 (3%)
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

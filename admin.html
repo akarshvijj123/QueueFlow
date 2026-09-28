@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | QueueFlow Staff Console</title>
+  <meta name="description" content="Operational dashboard for hospital, clinic, and bank staff to control queues in real-time.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-admin dashboard-body">
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">Q</div>
+      <span>QueueFlow</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="sidebar-link active">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        Dashboard
+      </a>
+      <a href="#queue-management" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Queue Management
+      </a>
+      <a href="customer.html" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        Customer App
+      </a>
+      <a href="analytics.html" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+        Analytics
+      </a>
+      <a href="index.html" class="sidebar-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        Landing Page
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div>CityCare Hospital</div>
+      <div style="color: #475569; font-size: 0.75rem;">Desk 3 Console</div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+
+    <!-- Topbar -->
+    <header class="dashboard-topbar">
+      <div class="topbar-org">
+        <h1 class="topbar-org-title">CITYCARE HOSPITAL</h1>
+        <span id="admin-queue-status-badge" class="badge badge-green">
+          <span class="badge-dot"></span> QUEUE ACTIVE
+        </span>
+      </div>
+
+      <div class="topbar-right">
+        <button id="admin-btn-reset-demo" class="btn btn-secondary btn-sm" title="Reset state to default demo dataset">
+          Reset Demo Data
+        </button>
+        <div class="user-profile">
+          <div class="user-avatar">SJ</div>
+          <div>
+            <div style="font-weight: 600;">Dr. Sarah Jenkins</div>
+            <div style="font-size: 0.75rem; color: var(--text-light);">Desk 3 Operator</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Content Area -->
+    <div class="dashboard-content">
+
+      <!-- Today's Overview Metric Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">People Waiting</div>
+          <div class="stat-card-val" id="admin-stat-waiting">24</div>
+          <div class="stat-card-sub">In queue list</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Currently Serving</div>
+          <div class="stat-card-val" id="admin-stat-serving" style="color: var(--accent-teal);">1</div>
+          <div class="stat-card-sub">Active at Desk 3</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Completed Today</div>
+          <div class="stat-card-val" id="admin-stat-completed">86</div>
+          <div class="stat-card-sub">+12 this hour</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Average Wait</div>
+          <div class="stat-card-val" id="admin-stat-avg-wait">17 min</div>
+          <div class="stat-card-sub">Target: &lt; 20 min</div>
+        </div>
+      </div>
+
+      <!-- Queue Control Panel & Call Next Header -->
+      <div class="control-header-panel">
+        <div class="serving-now-panel">
+          <div class="serving-badge-large">
+            <div class="serving-badge-label">NOW SERVING</div>
+            <div class="serving-badge-num" id="admin-serving-token">A-018</div>
+          </div>
+
+          <div>
+            <div style="font-size: 1.125rem; font-weight: 700;" id="admin-serving-name">Marcus Vance</div>
+            <div style="font-size: 0.875rem; color: var(--text-muted);">
+              Service: <span id="admin-serving-service">General Consultation</span> &bull; 
+              Called: <span id="admin-serving-time">10:42 AM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons-group">
+          <button id="admin-btn-call-next" class="btn btn-primary btn-lg">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+            CALL NEXT
+          </button>
+
+          <button id="admin-btn-toggle-pause" class="btn btn-secondary btn-sm">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            PAUSE QUEUE
+          </button>
+
+          <button id="admin-btn-add-walkin" class="btn btn-outline-teal btn-sm">
+            + Add Walk-In
+          </button>
+        </div>
+      </div>
+
+      <!-- Queue Table -->
+      <div class="table-card" id="queue-management">
+        <div class="table-header">
+          <div class="table-title">Upcoming Queue List</div>
+          <span style="font-size: 0.8125rem; color: var(--text-muted);">Sorted by arrival time</span>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Customer Name</th>
+              <th>Service / Department</th>
+              <th>Wait Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="admin-queue-table-body">
+            <!-- Dynamic Queue Rows rendered by script.js -->
+            <tr>
+              <td class="token-cell">A-019</td>
+              <td><strong>Elena Rostova</strong></td>
+              <td>General Consultation</td>
+              <td>14 min</td>
+              <td><span class="badge badge-amber"><span class="badge-dot"></span> Waiting</span></td>
+            </tr>
+            <tr>
+              <td class="token-cell">A-020</td>
+              <td><strong>David Chen</strong></td>
+              <td>General Consultation</td>
+              <td>12 min</td>
+              <td><span class="badge badge-amber"><span class="badge-dot"></span> Waiting</span></td>
+            </tr>
+            <tr>
+              <td class="token-cell">A-021</td>
+              <td><strong>Sarah Jenkins</strong></td>
+              <td>Pharmacy</td>
+              <td>10 min</td>
+              <td><span class="badge badge-amber"><span class="badge-dot"></span> Waiting</span></td>
+            </tr>
+            <tr>
+              <td class="token-cell">A-022</td>
+              <td><strong>Michael Chang</strong></td>
+              <td>Laboratory</td>
+              <td>8 min</td>
+              <td><span class="badge badge-amber"><span class="badge-dot"></span> Waiting</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

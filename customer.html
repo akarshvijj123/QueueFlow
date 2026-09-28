@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Queue Portal | QueueFlow</title>
+  <meta name="description" content="Live queue tracking and digital token management for customers.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-customer">
+
+  <!-- Header Navigation -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo-brand">
+        <div class="logo-icon">Q</div>
+        <span>QueueFlow</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-secondary btn-sm">Home</a>
+        <a href="admin.html" class="btn btn-primary btn-sm">Open Admin Console</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="customer-layout">
+    <!-- Card Container -->
+    <div class="customer-card">
+      <div class="customer-card-header">
+        <h1 class="customer-org-title">CITYCARE HOSPITAL</h1>
+        <p class="customer-org-sub">Outpatient & Clinical Services Center</p>
+      </div>
+
+      <div class="customer-card-body">
+
+        <!-- STEP 1: JOIN QUEUE FORM (Visible when customer has not joined yet) -->
+        <div id="customer-join-section">
+          <h2 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1.25rem;">Select Service to Join Queue</h2>
+
+          <form id="customer-join-form">
+            <div class="form-group">
+              <label class="form-label" for="customer-name-input">Your Name (Optional)</label>
+              <input type="text" id="customer-name-input" class="form-input" placeholder="e.g. Alex Taylor" value="Demo Customer">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Select Department / Service</label>
+              <div class="service-options">
+                <button type="button" class="service-option-btn selected" data-service="General Consultation">
+                  <div>
+                    <div class="service-option-name">General Consultation</div>
+                    <div class="service-option-est">Avg Wait: ~18 min</div>
+                  </div>
+                  <span class="badge badge-green">Active</span>
+                </button>
+
+                <button type="button" class="service-option-btn" data-service="Pharmacy">
+                  <div>
+                    <div class="service-option-name">Pharmacy</div>
+                    <div class="service-option-est">Avg Wait: ~10 min</div>
+                  </div>
+                  <span class="badge badge-green">Active</span>
+                </button>
+
+                <button type="button" class="service-option-btn" data-service="Laboratory">
+                  <div>
+                    <div class="service-option-name">Laboratory & Diagnostics</div>
+                    <div class="service-option-est">Avg Wait: ~15 min</div>
+                  </div>
+                  <span class="badge badge-green">Active</span>
+                </button>
+
+                <button type="button" class="service-option-btn" data-service="Billing">
+                  <div>
+                    <div class="service-option-name">Billing & Payments</div>
+                    <div class="service-option-est">Avg Wait: ~5 min</div>
+                  </div>
+                  <span class="badge badge-green">Active</span>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top: 1.5rem;">
+              Get Digital Token
+            </button>
+          </form>
+        </div>
+
+        <!-- STEP 2: LIVE TICKET STATUS DISPLAY (Visible when customer is in queue) -->
+        <div id="customer-status-section" style="display: none;">
+          
+          <!-- Token Badge Header -->
+          <div class="token-display-box">
+            <div class="token-label">YOUR TOKEN</div>
+            <div class="token-number" id="cust-token-num">A-024</div>
+            <span class="token-service-tag" id="cust-service-tag">General Consultation</span>
+          </div>
+
+          <!-- Notification Banner -->
+          <div id="cust-notification" class="notification-banner info">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div>You are in the queue. We will notify you when your turn is close.</div>
+          </div>
+
+          <!-- Metrics Grid -->
+          <div class="queue-metrics-grid">
+            <div class="metric-box">
+              <div class="metric-box-title">NOW SERVING</div>
+              <div class="metric-box-num" id="cust-now-serving" style="color: var(--accent-teal);">A-018</div>
+            </div>
+
+            <div class="metric-box">
+              <div class="metric-box-title">YOUR POSITION</div>
+              <div class="metric-box-num" id="cust-position">7</div>
+            </div>
+
+            <div class="metric-box">
+              <div class="metric-box-title">PEOPLE AHEAD</div>
+              <div class="metric-box-num" id="cust-people-ahead">6</div>
+            </div>
+
+            <div class="metric-box">
+              <div class="metric-box-title">ESTIMATED WAIT</div>
+              <div class="metric-box-num" id="cust-est-wait">18 min</div>
+            </div>
+          </div>
+
+          <!-- Queue Progress Bar -->
+          <div class="progress-container">
+            <div class="progress-info">
+              <span>Queue Status</span>
+              <span id="cust-progress-text">6 people remaining</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="cust-progress-fill" style="width: 35%;"></div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <button type="button" id="btn-sim-advance" class="btn btn-outline-teal btn-full">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+              Simulate Queue Advance (Call Next)
+            </button>
+
+            <button type="button" id="btn-leave-queue" class="btn btn-secondary btn-full">
+              Leave Queue
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
